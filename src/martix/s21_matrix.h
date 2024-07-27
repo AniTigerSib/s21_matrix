@@ -9,8 +9,8 @@ typedef struct matrix_struct {
 
 typedef enum return_codes {
   OK = 0,
-  INVALID_MATRIX = 1,
-  INVALID_CALCULATIONS
+  ERROR = 1,
+  CALC_ERROR
 } res_code_e;
 
 int s21_create_matrix(int rows, int columns, matrix_t *result);
