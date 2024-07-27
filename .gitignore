@@ -54,3 +54,5 @@ dkms.conf
 .vscode
 *.log
 .clangd
+
+temp_*
