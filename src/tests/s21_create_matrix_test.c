@@ -9,14 +9,14 @@ START_TEST(create_matrix_1to1)
   int columns = 1;
   res_code_e expected_result = OK;
 
-  matrix_t* matrix = NULL;
-  res_code_e return_value = s21_create_matrix(rows, columns, matrix);
-  ck_assert_msg(return_value == expected_result, "Expected %d return code, got %d", expected_result, return_value);
-  ck_assert_msg(matrix != NULL, "Expected matrix to be created, got NULL");
-  ck_assert_msg(matrix->columns == columns, "Expected %d columns, got %d", columns, matrix->columns);
-  ck_assert_msg(matrix->rows == rows, "Expected %d rows, got %d", rows, matrix->rows);
-  ck_assert_msg(matrix->matrix[0][0] == 0, "Expected zero matrix in [0][0] position");
-  s21_remove_matrix(matrix);
+  matrix_t matrix = {0};
+  res_code_e return_value = s21_create_matrix(rows, columns, &matrix);
+  ck_assert_int_eq(return_value, expected_result);
+  ck_assert_ptr_ne(matrix.matrix, NULL);
+  ck_assert_int_eq(matrix.rows, rows);
+  ck_assert_int_eq(matrix.columns, columns);
+  ck_assert_double_eq(matrix.matrix[0][0], 0.0f);
+  s21_remove_matrix(&matrix);
 }
 END_TEST
 
@@ -26,16 +26,16 @@ START_TEST(create_matrix_1to3)
   int columns = 3;
   res_code_e expected_result = OK;
 
-  matrix_t* matrix = NULL;
-  res_code_e return_value = s21_create_matrix(rows, columns, matrix);
-  ck_assert_msg(return_value == expected_result, "Expected %d return code, got %d", expected_result, return_value);
-  ck_assert_msg(matrix != NULL, "Expected matrix to be created, got NULL");
-  ck_assert_msg(matrix->columns == columns, "Expected %d columns, got %d", columns, matrix->columns);
-  ck_assert_msg(matrix->rows == rows, "Expected %d rows, got %d", rows, matrix->rows);
-  ck_assert_msg(matrix->matrix[0][0] == 0, "Expected zero matrix in [0][0] position");
-  ck_assert_msg(matrix->matrix[0][1] == 0, "Expected zero matrix in [0][1] position");
-  ck_assert_msg(matrix->matrix[0][2] == 0, "Expected zero matrix in [0][2] position");
-  s21_remove_matrix(matrix);
+  matrix_t matrix = {0};
+  res_code_e return_value = s21_create_matrix(rows, columns, &matrix);
+  ck_assert_int_eq(return_value, expected_result);
+  ck_assert_ptr_ne(matrix.matrix, NULL);
+  ck_assert_int_eq(matrix.rows, rows);
+  ck_assert_int_eq(matrix.columns, columns);
+  ck_assert_double_eq(matrix.matrix[0][0], 0.0f);
+  ck_assert_double_eq(matrix.matrix[0][1], 0.0f);
+  ck_assert_double_eq(matrix.matrix[0][2], 0.0f);
+  s21_remove_matrix(&matrix);
 }
 END_TEST
 
@@ -45,16 +45,16 @@ START_TEST(create_matrix_3to1)
   int columns = 1;
   res_code_e expected_result = OK;
 
-  matrix_t* matrix = NULL;
-  res_code_e return_value = s21_create_matrix(rows, columns, matrix);
-  ck_assert_msg(return_value == expected_result, "Expected %d return code, got %d", expected_result, return_value);
-  ck_assert_msg(matrix != NULL, "Expected matrix to be created, got NULL");
-  ck_assert_msg(matrix->columns == columns, "Expected %d columns, got %d", columns, matrix->columns);
-  ck_assert_msg(matrix->rows == rows, "Expected %d rows, got %d", rows, matrix->rows);
-  ck_assert_msg(matrix->matrix[0][0] == 0, "Expected zero matrix in [0][0] position");
-  ck_assert_msg(matrix->matrix[1][0] == 0, "Expected zero matrix in [1][0] position");
-  ck_assert_msg(matrix->matrix[2][0] == 0, "Expected zero matrix in [2][0] position");
-  s21_remove_matrix(matrix);
+  matrix_t matrix = {0};
+  res_code_e return_value = s21_create_matrix(rows, columns, &matrix);
+  ck_assert_int_eq(return_value, expected_result);
+  ck_assert_ptr_ne(matrix.matrix, NULL);
+  ck_assert_int_eq(matrix.rows, rows);
+  ck_assert_int_eq(matrix.columns, columns);
+  ck_assert_double_eq(matrix.matrix[0][0], 0.0f);
+  ck_assert_double_eq(matrix.matrix[1][0], 0.0f);
+  ck_assert_double_eq(matrix.matrix[2][0], 0.0f);
+  s21_remove_matrix(&matrix);
 }
 END_TEST
 
@@ -64,22 +64,22 @@ START_TEST(create_matrix_3to3)
   int columns = 3;
   res_code_e expected_result = OK;
 
-  matrix_t* matrix = NULL;
-  res_code_e return_value = s21_create_matrix(rows, columns, matrix);
-  ck_assert_msg(return_value == expected_result, "Expected %d return code, got %d", expected_result, return_value);
-  ck_assert_msg(matrix != NULL, "Expected matrix to be created, got NULL");
-  ck_assert_msg(matrix->columns == columns, "Expected %d columns, got %d", columns, matrix->columns);
-  ck_assert_msg(matrix->rows == rows, "Expected %d rows, got %d", rows, matrix->rows);
-  ck_assert_msg(matrix->matrix[0][0] == 0, "Expected zero matrix in [0][0] position");
-  ck_assert_msg(matrix->matrix[0][1] == 0, "Expected zero matrix in [0][1] position");
-  ck_assert_msg(matrix->matrix[0][2] == 0, "Expected zero matrix in [0][2] position");
-  ck_assert_msg(matrix->matrix[1][0] == 0, "Expected zero matrix in [1][0] position");
-  ck_assert_msg(matrix->matrix[1][1] == 0, "Expected zero matrix in [1][1] position");
-  ck_assert_msg(matrix->matrix[1][2] == 0, "Expected zero matrix in [1][2] position");
-  ck_assert_msg(matrix->matrix[2][0] == 0, "Expected zero matrix in [2][0] position");
-  ck_assert_msg(matrix->matrix[2][1] == 0, "Expected zero matrix in [2][1] position");
-  ck_assert_msg(matrix->matrix[2][2] == 0, "Expected zero matrix in [2][2] position");
-  s21_remove_matrix(matrix);
+  matrix_t matrix = {0};
+  res_code_e return_value = s21_create_matrix(rows, columns, &matrix);
+  ck_assert_int_eq(return_value, expected_result);
+  ck_assert_ptr_ne(matrix.matrix, NULL);
+  ck_assert_int_eq(matrix.rows, rows);
+  ck_assert_int_eq(matrix.columns, columns);
+  ck_assert_double_eq(matrix.matrix[0][0], 0.0f);
+  ck_assert_double_eq(matrix.matrix[0][1], 0.0f);
+  ck_assert_double_eq(matrix.matrix[0][2], 0.0f);
+  ck_assert_double_eq(matrix.matrix[1][0], 0.0f);
+  ck_assert_double_eq(matrix.matrix[1][1], 0.0f);
+  ck_assert_double_eq(matrix.matrix[1][2], 0.0f);
+  ck_assert_double_eq(matrix.matrix[2][0], 0.0f);
+  ck_assert_double_eq(matrix.matrix[2][1], 0.0f);
+  ck_assert_double_eq(matrix.matrix[2][2], 0.0f);
+  s21_remove_matrix(&matrix);
 }
 END_TEST
 
@@ -89,13 +89,14 @@ START_TEST(create_matrix_zero_to_positive)
   int columns = 3;
   res_code_e expected_result = ERROR;
 
-  matrix_t* matrix = NULL, *check = NULL;
-  res_code_e return_value = s21_create_matrix(rows, columns, matrix);
-  check = matrix;
-  s21_remove_matrix(matrix);
+  matrix_t matrix = {0};
+  res_code_e return_value = s21_create_matrix(rows, columns, &matrix);
+  s21_remove_matrix(&matrix);
 
-  ck_assert_msg(return_value == expected_result, "Expected %d return code, got %d", expected_result, return_value);
-  ck_assert_msg(check == NULL, "Expected matrix NOT to be created, got %p", matrix);
+  ck_assert_int_eq(return_value, expected_result);
+  ck_assert_ptr_eq(matrix.matrix, NULL);
+  ck_assert_int_eq(matrix.rows, 0);
+  ck_assert_int_eq(matrix.columns, 0);
 }
 END_TEST
 
@@ -105,121 +106,127 @@ START_TEST(create_matrix_positive_to_zero)
   int columns = 0;
   res_code_e expected_result = ERROR;
 
-  matrix_t* matrix = NULL, *check = NULL;
-  res_code_e return_value = s21_create_matrix(rows, columns, matrix);
-  check = matrix;
-  s21_remove_matrix(matrix);
+  matrix_t matrix = {0};
+  res_code_e return_value = s21_create_matrix(rows, columns, &matrix);
+  s21_remove_matrix(&matrix);
 
-  ck_assert_msg(return_value == expected_result, "Expected %d return code, got %d", expected_result, return_value);
-  ck_assert_msg(check == NULL, "Expected matrix NOT to be created, got %p", matrix);
+  ck_assert_int_eq(return_value, expected_result);
+  ck_assert_ptr_eq(matrix.matrix, NULL);
+  ck_assert_int_eq(matrix.rows, 0);
+  ck_assert_int_eq(matrix.columns, 0);
 }
 END_TEST
 
 START_TEST(create_matrix_zero_to_zero)
 {
-  matrix_t* matrix = NULL, *check = NULL;
-  ck_assert_int_eq(s21_create_matrix(0, 0, matrix), ERROR);
-  check = matrix;
-  s21_remove_matrix(matrix);
-  ck_assert_ptr_null(check);
+  matrix_t matrix = {0};
+  ck_assert_int_eq(s21_create_matrix(0, 0, &matrix), ERROR);
+  s21_remove_matrix(&matrix);
+  ck_assert_ptr_eq(matrix.matrix, NULL);
+  ck_assert_int_eq(matrix.rows, 0);
+  ck_assert_int_eq(matrix.columns, 0);
 }
 END_TEST
 
 START_TEST(create_matrix_negative_to_zero)
 {
-  matrix_t* matrix = NULL, *check = NULL;
-  ck_assert_int_eq(s21_create_matrix(-1, 0, matrix), ERROR);
-  check = matrix;
-  s21_remove_matrix(matrix);
-  ck_assert_ptr_null(check);
+  matrix_t matrix = {0};
+  ck_assert_int_eq(s21_create_matrix(-1, 0, &matrix), ERROR);
+  s21_remove_matrix(&matrix);
+  ck_assert_ptr_eq(matrix.matrix, NULL);
+  ck_assert_int_eq(matrix.rows, 0);
+  ck_assert_int_eq(matrix.columns, 0);
 }
 END_TEST
 
 START_TEST(create_matrix_zero_to_negative)
 {
-  matrix_t* matrix = NULL, *check = NULL;
-  ck_assert_int_eq(s21_create_matrix(0, -1, matrix), ERROR);
-  check = matrix;
-  s21_remove_matrix(matrix);
-  ck_assert_ptr_null(check);
+  matrix_t matrix = {0};
+  ck_assert_int_eq(s21_create_matrix(0, -1, &matrix), ERROR);
+  s21_remove_matrix(&matrix);
+  ck_assert_ptr_eq(matrix.matrix, NULL);
+  ck_assert_int_eq(matrix.rows, 0);
+  ck_assert_int_eq(matrix.columns, 0);
 }
 END_TEST
 
 START_TEST(create_matrix_negative_to_negative)
 {
-  matrix_t* matrix = NULL, *check = NULL;
-  ck_assert_int_eq(s21_create_matrix(-1, -1, matrix), ERROR);
-  check = matrix;
-  s21_remove_matrix(matrix);
-  ck_assert_ptr_null(check);
+  matrix_t matrix = {0};
+  ck_assert_int_eq(s21_create_matrix(-1, -1, &matrix), ERROR);
+  s21_remove_matrix(&matrix);
+  ck_assert_ptr_eq(matrix.matrix, NULL);
+  ck_assert_int_eq(matrix.rows, 0);
+  ck_assert_int_eq(matrix.columns, 0);
 }
 END_TEST
 
 START_TEST(create_matrix_negative_to_positive)
 {
-  matrix_t* matrix = NULL, *check = NULL;
-  ck_assert_int_eq(s21_create_matrix(-1, 1, matrix), ERROR);
-  check = matrix;
-  s21_remove_matrix(matrix);
-  ck_assert_ptr_null(check);
+  matrix_t matrix = {0};
+  ck_assert_int_eq(s21_create_matrix(-1, 1, &matrix), ERROR);
+  s21_remove_matrix(&matrix);
+  ck_assert_ptr_eq(matrix.matrix, NULL);
+  ck_assert_int_eq(matrix.rows, 0);
+  ck_assert_int_eq(matrix.columns, 0);
 }
 END_TEST
 
 START_TEST(create_matrix_positive_to_negative)
 {
-  matrix_t* matrix = NULL, *check = NULL;
-  ck_assert_int_eq(s21_create_matrix(1, -1, matrix), ERROR);
-  check = matrix;
-  s21_remove_matrix(matrix);
-  ck_assert_ptr_null(check);
+  matrix_t matrix = {0};
+  ck_assert_int_eq(s21_create_matrix(1, -1, &matrix), ERROR);
+  s21_remove_matrix(&matrix);
+  ck_assert_ptr_eq(matrix.matrix, NULL);
+  ck_assert_int_eq(matrix.rows, 0);
+  ck_assert_int_eq(matrix.columns, 0);
 }
 END_TEST
 
 START_TEST(create_matrix_not_null_pointer)
 {
-  matrix_t* matrix = NULL;
-  s21_create_matrix(1, 1, matrix);
-  ck_assert_int_eq(s21_create_matrix(3, 3, matrix), ERROR);
-  ck_assert_ptr_nonnull(matrix);
-  ck_assert_int_eq(matrix->columns, 1);
-  ck_assert_int_eq(matrix->rows, 1);
-  ck_assert_double_eq(matrix->matrix[0][0], 0);
-  s21_remove_matrix(matrix);
-}
-END_TEST
-
-START_TEST(create_matrix_mem_allocating_blocked_matrix_t)
-{
-  matrix_t* matrix = NULL, *check = NULL;
-  memory_locked(sizeof(matrix_t), 1);
-  ck_assert_int_eq(s21_create_matrix(3, 3, matrix), ERROR);
-  memory_locked(0, -1);
-  check = matrix;
-  s21_remove_matrix(matrix);
-  ck_assert_ptr_null(check);
+  matrix_t matrix = {0};
+  s21_create_matrix(1, 1, &matrix);
+  ck_assert_int_eq(s21_create_matrix(3, 3, &matrix), ERROR);
+  ck_assert_int_eq(matrix.rows, 1);
+  ck_assert_int_eq(matrix.columns, 1);
+  ck_assert_double_eq(matrix.matrix[0][0], 0.0f);
+  s21_remove_matrix(&matrix);
 }
 END_TEST
 
 START_TEST(create_matrix_mem_allocating_blocked_p_double)
 {
-  matrix_t* matrix = NULL, *check = NULL;
+  matrix_t matrix = {0};
+  int check_r, check_c = 0;
+  double **check = NULL;
   memory_locked(sizeof(double *), 1);
-  ck_assert_int_eq(s21_create_matrix(3, 3, matrix), ERROR);
+  ck_assert_int_eq(s21_create_matrix(3, 3, &matrix), ERROR);
   memory_locked(0, -1);
-  check = matrix;
-  s21_remove_matrix(matrix);
+  check = matrix.matrix;
+  check_c = matrix.columns;
+  check_r = matrix.rows;
+  s21_remove_matrix(&matrix);
+  ck_assert_int_eq(check_r, 0);
+  ck_assert_int_eq(check_c, 0);
   ck_assert_ptr_null(check);
 }
 END_TEST
 
 START_TEST(create_matrix_mem_allocating_blocked_double)
 {
-  matrix_t* matrix = NULL, *check = NULL;
+  matrix_t matrix = {0};
+  int check_r, check_c = 0;
+  double **check = NULL;
   memory_locked(sizeof(double), 1);
-  ck_assert_int_eq(s21_create_matrix(3, 3, matrix), ERROR);
+  ck_assert_int_eq(s21_create_matrix(3, 3, &matrix), ERROR);
   memory_locked(0, -1);
-  check = matrix;
-  s21_remove_matrix(matrix);
+  check = matrix.matrix;
+  check_c = matrix.columns;
+  check_r = matrix.rows;
+  s21_remove_matrix(&matrix);
+  ck_assert_int_eq(check_r, 0);
+  ck_assert_int_eq(check_c, 0);
   ck_assert_ptr_null(check);
 }
 END_TEST
@@ -241,7 +248,6 @@ Suite *s21_create_matrix_suite(void) {
   tcase_add_test(tc_core, create_matrix_negative_to_positive);
   tcase_add_test(tc_core, create_matrix_positive_to_negative);
   tcase_add_test(tc_core, create_matrix_not_null_pointer);
-  tcase_add_test(tc_core, create_matrix_mem_allocating_blocked_matrix_t);
   tcase_add_test(tc_core, create_matrix_mem_allocating_blocked_p_double);
   tcase_add_test(tc_core, create_matrix_mem_allocating_blocked_double);
 
