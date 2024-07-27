@@ -7,6 +7,7 @@ START_TEST(remove_matrix_normal)
   matrix_t *matrix = NULL;
   s21_create_matrix(3, 3, matrix);
   s21_remove_matrix(matrix);
+  matrix = NULL;
   ck_assert_ptr_null(matrix);
 }
 END_TEST
@@ -15,6 +16,7 @@ START_TEST(remove_matrix_null_pointer)
 {
   matrix_t *matrix = NULL;
   s21_remove_matrix(matrix);
+  matrix = NULL;
   ck_assert_ptr_null(matrix);
 }
 END_TEST
@@ -30,6 +32,7 @@ START_TEST(remove_matrix_null_pointer_inside)
   free(matrix->matrix);
   matrix->matrix = NULL;
   s21_remove_matrix(matrix);
+  matrix = NULL;
   ck_assert_ptr_null(matrix);
 }
 END_TEST
@@ -41,6 +44,7 @@ START_TEST(remove_matrix_null_pointer_inside_normal_pointer)
   free(matrix->matrix[1]);
   matrix->matrix[1] = NULL;
   s21_remove_matrix(matrix);
+  matrix = NULL;
   ck_assert_ptr_null(matrix);
 }
 END_TEST
