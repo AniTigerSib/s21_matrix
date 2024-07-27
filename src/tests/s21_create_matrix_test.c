@@ -1,6 +1,7 @@
 #include "matrix_test.h"
 
 #include "../martix/s21_matrix.h"
+#include "../allocator_wrapper/allocator_wrapper.h"
 
 START_TEST(create_matrix_1to1)
 {
@@ -84,51 +85,93 @@ END_TEST
 
 START_TEST(create_matrix_zero_to_positive)
 {
-  int a = 0;
-  int b = 3;
-  res_code_e expected_result = INVALID_MATRIX;
+  int rows = 0;
+  int columns = 3;
+  res_code_e expected_result = ERROR;
 
-  matrix_t* matrix = NULL;
-  res_code_e return_value = s21_create_matrix(a, b, matrix);
+  matrix_t* matrix = NULL, *check = NULL;
+  res_code_e return_value = s21_create_matrix(rows, columns, matrix);
+  check = matrix;
+  s21_remove_matrix(matrix);
+
   ck_assert_msg(return_value == expected_result, "Expected %d return code, got %d", expected_result, return_value);
-  ck_assert_msg(matrix == NULL, "Expected matrix NOT to be created, got %p", matrix);
-  return_value = s21_create_matrix(b, a, matrix);
+  ck_assert_msg(check == NULL, "Expected matrix NOT to be created, got %p", matrix);
+}
+END_TEST
+
+START_TEST(create_matrix_positive_to_zero)
+{
+  int rows = 3;
+  int columns = 0;
+  res_code_e expected_result = ERROR;
+
+  matrix_t* matrix = NULL, *check = NULL;
+  res_code_e return_value = s21_create_matrix(rows, columns, matrix);
+  check = matrix;
+  s21_remove_matrix(matrix);
+
   ck_assert_msg(return_value == expected_result, "Expected %d return code, got %d", expected_result, return_value);
-  ck_assert_msg(matrix == NULL, "Expected matrix NOT to be created, got %p", matrix);
+  ck_assert_msg(check == NULL, "Expected matrix NOT to be created, got %p", matrix);
 }
 END_TEST
 
 START_TEST(create_matrix_zero_to_zero)
 {
-  matrix_t* matrix = NULL;
-  ck_assert_int_eq(s21_create_matrix(0, 0, matrix), INVALID_MATRIX);
-  ck_assert_ptr_eq(matrix, NULL);
+  matrix_t* matrix = NULL, *check = NULL;
+  ck_assert_int_eq(s21_create_matrix(0, 0, matrix), ERROR);
+  check = matrix;
+  s21_remove_matrix(matrix);
+  ck_assert_ptr_null(check);
 }
+END_TEST
 
 START_TEST(create_matrix_negative_to_zero)
 {
-  matrix_t* matrix = NULL;
-  ck_assert_int_eq(s21_create_matrix(-1, 0, matrix), INVALID_MATRIX);
-  ck_assert_ptr_eq(matrix, NULL);
-  ck_assert_int_eq(s21_create_matrix(0, -1, matrix), INVALID_MATRIX);
-  ck_assert_ptr_eq(matrix, NULL);
+  matrix_t* matrix = NULL, *check = NULL;
+  ck_assert_int_eq(s21_create_matrix(-1, 0, matrix), ERROR);
+  check = matrix;
+  s21_remove_matrix(matrix);
+  ck_assert_ptr_null(check);
 }
+END_TEST
+
+START_TEST(create_matrix_zero_to_negative)
+{
+  matrix_t* matrix = NULL, *check = NULL;
+  ck_assert_int_eq(s21_create_matrix(0, -1, matrix), ERROR);
+  check = matrix;
+  s21_remove_matrix(matrix);
+  ck_assert_ptr_null(check);
+}
+END_TEST
 
 START_TEST(create_matrix_negative_to_negative)
 {
-  matrix_t* matrix = NULL;
-  ck_assert_int_eq(s21_create_matrix(-1, -1, matrix), INVALID_MATRIX);
-  ck_assert_ptr_eq(matrix, NULL);
+  matrix_t* matrix = NULL, *check = NULL;
+  ck_assert_int_eq(s21_create_matrix(-1, -1, matrix), ERROR);
+  check = matrix;
+  s21_remove_matrix(matrix);
+  ck_assert_ptr_null(check);
 }
 END_TEST
 
 START_TEST(create_matrix_negative_to_positive)
 {
-  matrix_t* matrix = NULL;
-  ck_assert_int_eq(s21_create_matrix(-1, 1, matrix), INVALID_MATRIX);
-  ck_assert_ptr_eq(matrix, NULL);
-  ck_assert_int_eq(s21_create_matrix(1, -1, matrix), INVALID_MATRIX);
-  ck_assert_ptr_eq(matrix, NULL);
+  matrix_t* matrix = NULL, *check = NULL;
+  ck_assert_int_eq(s21_create_matrix(-1, 1, matrix), ERROR);
+  check = matrix;
+  s21_remove_matrix(matrix);
+  ck_assert_ptr_null(check);
+}
+END_TEST
+
+START_TEST(create_matrix_positive_to_negative)
+{
+  matrix_t* matrix = NULL, *check = NULL;
+  ck_assert_int_eq(s21_create_matrix(1, -1, matrix), ERROR);
+  check = matrix;
+  s21_remove_matrix(matrix);
+  ck_assert_ptr_null(check);
 }
 END_TEST
 
@@ -136,13 +179,50 @@ START_TEST(create_matrix_not_null_pointer)
 {
   matrix_t* matrix = NULL;
   s21_create_matrix(1, 1, matrix);
-  ck_assert_int_eq(s21_create_matrix(1, 1, matrix), INVALID_MATRIX);
-  ck_assert_ptr_ne(matrix, NULL);
+  ck_assert_int_eq(s21_create_matrix(3, 3, matrix), ERROR);
+  ck_assert_ptr_nonnull(matrix);
+  ck_assert_int_eq(matrix->columns, 1);
+  ck_assert_int_eq(matrix->rows, 1);
+  ck_assert_double_eq(matrix->matrix[0][0], 0);
   s21_remove_matrix(matrix);
 }
 END_TEST
 
-// TODO: Запилить тесты на проверку работы с динамической памятью (ссылка открыта в фаерфоксе)
+START_TEST(create_matrix_mem_allocating_blocked_matrix_t)
+{
+  matrix_t* matrix = NULL, *check = NULL;
+  memory_locked(sizeof(matrix_t), 1);
+  ck_assert_int_eq(s21_create_matrix(3, 3, matrix), ERROR);
+  memory_locked(0, -1);
+  check = matrix;
+  s21_remove_matrix(matrix);
+  ck_assert_ptr_null(check);
+}
+END_TEST
+
+START_TEST(create_matrix_mem_allocating_blocked_p_double)
+{
+  matrix_t* matrix = NULL, *check = NULL;
+  memory_locked(sizeof(double *), 1);
+  ck_assert_int_eq(s21_create_matrix(3, 3, matrix), ERROR);
+  memory_locked(0, -1);
+  check = matrix;
+  s21_remove_matrix(matrix);
+  ck_assert_ptr_null(check);
+}
+END_TEST
+
+START_TEST(create_matrix_mem_allocating_blocked_double)
+{
+  matrix_t* matrix = NULL, *check = NULL;
+  memory_locked(sizeof(double), 1);
+  ck_assert_int_eq(s21_create_matrix(3, 3, matrix), ERROR);
+  memory_locked(0, -1);
+  check = matrix;
+  s21_remove_matrix(matrix);
+  ck_assert_ptr_null(check);
+}
+END_TEST
 
 Suite *s21_create_matrix_suite(void) {
   Suite *s = suite_create("s21_create_matrix_test");
@@ -153,11 +233,17 @@ Suite *s21_create_matrix_suite(void) {
   tcase_add_test(tc_core, create_matrix_3to1);
   tcase_add_test(tc_core, create_matrix_3to3);
   tcase_add_test(tc_core, create_matrix_zero_to_positive);
+  tcase_add_test(tc_core, create_matrix_positive_to_zero);
   tcase_add_test(tc_core, create_matrix_zero_to_zero);
   tcase_add_test(tc_core, create_matrix_negative_to_zero);
+  tcase_add_test(tc_core, create_matrix_zero_to_negative);
   tcase_add_test(tc_core, create_matrix_negative_to_negative);
   tcase_add_test(tc_core, create_matrix_negative_to_positive);
+  tcase_add_test(tc_core, create_matrix_positive_to_negative);
   tcase_add_test(tc_core, create_matrix_not_null_pointer);
+  tcase_add_test(tc_core, create_matrix_mem_allocating_blocked_matrix_t);
+  tcase_add_test(tc_core, create_matrix_mem_allocating_blocked_p_double);
+  tcase_add_test(tc_core, create_matrix_mem_allocating_blocked_double);
 
   suite_add_tcase(s, tc_core);
   return s;
