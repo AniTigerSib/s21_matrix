@@ -195,6 +195,14 @@ START_TEST(create_matrix_not_null_pointer)
 }
 END_TEST
 
+START_TEST(create_matrix_null_pointer)
+{
+  matrix_t *matrix = NULL;
+  ck_assert_int_eq(s21_create_matrix(3, 3, matrix), ERROR);
+  ck_assert_ptr_eq(matrix, NULL);
+}
+END_TEST
+
 START_TEST(create_matrix_mem_allocating_blocked_p_double)
 {
   matrix_t matrix = {0};
@@ -248,6 +256,7 @@ Suite *s21_create_matrix_suite(void) {
   tcase_add_test(tc_core, create_matrix_negative_to_positive);
   tcase_add_test(tc_core, create_matrix_positive_to_negative);
   tcase_add_test(tc_core, create_matrix_not_null_pointer);
+  tcase_add_test(tc_core, create_matrix_null_pointer);
   tcase_add_test(tc_core, create_matrix_mem_allocating_blocked_p_double);
   tcase_add_test(tc_core, create_matrix_mem_allocating_blocked_double);
 
