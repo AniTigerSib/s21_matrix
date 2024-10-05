@@ -10,7 +10,7 @@ TARGETDIR := ..
 CC := gcc
 # ищет заголовочные файлы в этой директории 
 CFLAGS := -I$(SOURCEDIR) -I$(ALLOCTESTDIR)
-# GCOVFLAGS := -fprofile-arcs -ftest-coveragey
+# GCOVFLAGS := -fprofile-arcs -ftest-coverage
 LDFLAGS := -lcheck -lsubunit -lrt -lm -lpthread
 
 TARGET := test
@@ -58,15 +58,15 @@ gcov_report: LDFLAGS += --coverage
 gcov_report: PROGRAM_TARGET := gcov_report
 gcov_report: all
 	mkdir -p $(GCOVDIR)
-	gcovr $(BUILDDIR) -r $(SOURCEDIR) --html --html-details -o $(GCOVDIR)/coverage.html
+	gcovr $(BUILDDIR) -r $(TARGETDIR) --html --html-details -o $(GCOVDIR)/coverage.html
 
 lcov_report: CFLAGS += --coverage
 lcov_report: LDFLAGS += --coverage
 lcov_report: PROGRAM_TARGET := gcov_report
 lcov_report: all
-	lcov -t "Report" -c -d $(BUILDDIR) --rc lcov_branch_coverage=1 --output-file $(BUILDDIR)/coverage.info
-	genhtml $(BUILDDIR)/coverage.info --rc lcov_branch_coverage=1 --output-directory $(GCOVDIR)
-	open $(GCOVDIR)/index.html
+	lcov -t "Report" -c -d $(BUILDDIR) --rc branch_coverage=1 --output-file $(BUILDDIR)/coverage.info
+	genhtml $(BUILDDIR)/coverage.info --rc branch_coverage=1 --output-directory $(GCOVDIR)
+	xdg-open $(GCOVDIR)/index.html
 
 sanitizer: PROGRAM_TARGET := gdb
 sanitizer: LDFLAGS += -fsanitize=address -g -fno-omit-frame-pointer -fno-optimize-sibling-calls

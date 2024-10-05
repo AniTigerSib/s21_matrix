@@ -23,7 +23,7 @@ int s21_create_matrix(int rows, int columns, matrix_t *result) {
     }
   }
 
-  if (code && result->matrix) {
+  if (code) {
     s21_remove_matrix(result);
   }
 
