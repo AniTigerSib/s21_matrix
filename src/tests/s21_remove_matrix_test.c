@@ -1,15 +1,16 @@
 #include "matrix_test.h"
 
-#include "../martix/s21_matrix.h"
+#include "../matrix/s21_matrix.h"
 
 #include <stdio.h>
+#include <time.h>
 
 START_TEST(remove_matrix_normal)
 {
   matrix_t matrix = {0};
   s21_create_matrix(3, 3, &matrix);
   s21_remove_matrix(&matrix);
-  printf("For valgrind tcase: remove_matrix_normal\n\n");
+
   ck_assert_ptr_eq(matrix.matrix, NULL);
   ck_assert_int_eq(matrix.rows, 0);
   ck_assert_int_eq(matrix.columns, 0);
@@ -20,7 +21,7 @@ START_TEST(remove_matrix_null_pointer)
 {
   matrix_t *matrix = NULL;
   s21_remove_matrix(matrix);
-  printf("For valgrind tcase: remove_matrix_null_pointer\n\n");
+  ck_assert_ptr_eq(matrix, NULL);
 }
 END_TEST
 
@@ -35,7 +36,7 @@ START_TEST(remove_matrix_null_pointer_inside)
   free(matrix.matrix);
   matrix.matrix = NULL;
   s21_remove_matrix(&matrix);
-  printf("For valgrind tcase: remove_matrix_null_pointer_inside\n\n");
+
   ck_assert_ptr_eq(matrix.matrix, NULL);
   ck_assert_int_eq(matrix.rows, 0);
   ck_assert_int_eq(matrix.columns, 0);
@@ -49,7 +50,7 @@ START_TEST(remove_matrix_null_pointer_inside_normal_pointer)
   free(matrix.matrix[1]);
   matrix.matrix[1] = NULL;
   s21_remove_matrix(&matrix);
-  printf("For valgrind tcase: remove_matrix_null_pointer_inside_normal_pointer\n\n");
+
   ck_assert_ptr_eq(matrix.matrix, NULL);
   ck_assert_int_eq(matrix.rows, 0);
   ck_assert_int_eq(matrix.columns, 0);
