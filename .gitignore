@@ -58,3 +58,4 @@ dkms.conf
 .clangd
 
 temp_*
+test

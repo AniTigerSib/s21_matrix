@@ -1,6 +1,6 @@
 #include "matrix_test.h"
 
-#include "../matrix/s21_matrix.h"
+#include "../s21_matrix.h"
 #include "../allocator_wrapper/allocator_wrapper.h"
 
 /*----------------OK----------------*/
