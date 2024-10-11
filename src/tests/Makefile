@@ -29,10 +29,10 @@ OBJECTS := $(patsubst %.c,%.o,$(foreach file,$(SOURCES),$(file)))
 all: $(TARGET)
 
 $(TARGET): $(OBJECTS)
-	@$(MAKE) -C $(SOURCEDIR) $(PROGRAM_TARGET)
-	@$(CC) $(CFLAGS) $(foreach object,$^,$(BUILDDIR)/$(notdir $(object))) -o $(TARGETDIR)/$@ $(LDFLAGS) 
-	@echo "running tests"
-	@$(RUN_FLAGS) ./$(TARGETDIR)/$@
+	$(MAKE) -C $(SOURCEDIR) $(PROGRAM_TARGET)
+	$(CC) $(CFLAGS) $(foreach object,$^,$(BUILDDIR)/$(notdir $(object))) -o $(TARGETDIR)/$@ $(LDFLAGS) 
+	echo "running tests"
+	$(RUN_FLAGS) ./$(TARGETDIR)/$@
 
 %.o: %.c
 	@$(CC) -I$(SOURCEDIR) $(CFLAGS) -c $< -o $(foreach object,$@,$(BUILDDIR)/$(notdir $(object)))
@@ -53,15 +53,15 @@ clang-i:
 	clang-format --style=google -i $(SOURCESDIR)/*.c
 	clang-format --style=google -i $(SOURCESDIR)/*.h
 
+# gcov_report: LDFLAGS += --coverage
 gcov_report: CFLAGS += --coverage
-gcov_report: LDFLAGS += --coverage
 gcov_report: PROGRAM_TARGET := gcov_report
 gcov_report: all
 	mkdir -p $(GCOVDIR)
 	gcovr $(BUILDDIR) -r $(TARGETDIR) --html --html-details -o $(GCOVDIR)/coverage.html
 
+# lcov_report: LDFLAGS += --coverage
 lcov_report: CFLAGS += --coverage
-lcov_report: LDFLAGS += --coverage
 lcov_report: PROGRAM_TARGET := gcov_report
 lcov_report: all
 	lcov -t "Report" -c -d $(BUILDDIR) --rc branch_coverage=1 --output-file $(BUILDDIR)/coverage.info

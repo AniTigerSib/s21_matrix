@@ -2,9 +2,6 @@
 
 #include "../matrix/s21_matrix.h"
 
-#include <stdio.h>
-#include <time.h>
-
 START_TEST(remove_matrix_normal)
 {
   matrix_t matrix = {0};
