@@ -25,6 +25,7 @@ OBJECTS := $(patsubst %.c,%.o,$(foreach file,$(SOURCES),$(file)))
 
 TESTSOURCES += $(wildcard $(TESTSDIR)/*.c)
 TESTOBJECTS := $(patsubst %.c,%.o,$(foreach file,$(TESTSOURCES),$(notdir $(file))))
+TESTGCNO := $(patsubst %.c,%.gcno,$(foreach file,$(TESTSOURCES),$(notdir $(file))))
 
 HELPERSSOURCES += $(wildcard $(HELPERSDIR)/*.c)
 HELPERSOBJECTS := $(patsubst %.c,%.o,$(foreach file,$(HELPERSSOURCES),$(notdir $(file))))
@@ -49,7 +50,7 @@ test: $(TARGET)
 test: CFLAGS += -I$(TESTSDIR)
 test: LDFLAGS += -lcheck -lsubunit -lrt -lm -lpthread $(abspath $(LIB))
 test: $(TESTOBJECTS) $(HELPERSOBJECTS)
-	$(CC) $(CFLAGS) $(GCOV_FLAGS) $(filter %.o,$(foreach object,$^,$(BUILDDIR)/$(object))) -o $(TARGETDIR)/$@ $(LDFLAGS)
+	$(CC) $(CFLAGS) $(COVFLAGS) $(GCOV_FLAGS) $(filter %.o,$(foreach object,$^,$(BUILDDIR)/$(object))) -o $(TARGETDIR)/$@ $(LDFLAGS)
 	echo "running tests"
 	$(RUN_FLAGS) $(TARGETDIR)/$@
 
@@ -70,6 +71,14 @@ gcov_report: GCOV_FLAGS += -fprofile-arcs -ftest-coverage -fPIC -O0
 gcov_report: test
 	mkdir -p $(GCOVDIR)
 	gcovr $(BUILDDIR) -r $(TARGETDIR) --html --html-details -o $(GCOVDIR)/coverage.html
+
+lcov_report: COVFLAGS += --coverage -fprofile-arcs -ftest-coverage
+lcov_report: GCOVFLAGS += -lgcov
+lcov_report: test
+	rm -f $(foreach object,$(TESTGCNO),$(BUILDDIR)/$(object))
+	lcov -t "Report" -c -d $(BUILDDIR) --rc lcov_branch_coverage=1 --output-file $(BUILDDIR)/coverage.info
+	genhtml $(BUILDDIR)/coverage.info --rc lcov_branch_coverage=1 --output-directory $(GCOVDIR)
+	open $(GCOVDIR)/index.html
 
 #---------------------------------------------------------#
 
