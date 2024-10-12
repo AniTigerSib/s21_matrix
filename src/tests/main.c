@@ -19,8 +19,8 @@ int main() {
   Suite *suites[] = {
     s21_create_matrix_suite(),
     s21_remove_matrix_suite(),
-    /*s21_eq_matrix_suite(),
-    s21_sum_matrix_suite(),
+    s21_eq_matrix_suite(),
+    /*s21_sum_matrix_suite(),
     s21_sub_matrix_suite(),
     s21_mult_number_suite(),
     s21_transpose_suite(),

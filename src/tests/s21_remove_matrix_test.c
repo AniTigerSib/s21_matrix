@@ -58,7 +58,7 @@ START_TEST(remove_matrix_null_pointer_inside_normal_pointer)
 END_TEST
 
 Suite *s21_remove_matrix_suite(void) {
-  Suite *s = suite_create("s21_remove_matrix_test");
+  Suite *s = suite_create("s21_remove_matrix");
   TCase *tc_core = tcase_create("Core");
 
   tcase_add_test(tc_core, remove_matrix_normal);

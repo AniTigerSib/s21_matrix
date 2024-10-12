@@ -284,7 +284,7 @@ END_TEST
 #endif
 
 Suite *s21_create_matrix_suite(void) {
-  Suite *s = suite_create("s21_create_matrix_test");
+  Suite *s = suite_create("s21_create_matrix");
   TCase *tc_core = tcase_create("Core");
 
   tcase_add_test(tc_core, create_matrix_1to1);
