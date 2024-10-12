@@ -243,6 +243,8 @@ START_TEST(create_matrix_null_pointer)
 }
 END_TEST
 
+#ifndef WITHOUT_MEMORY_LOCKING
+
 START_TEST(create_matrix_mem_allocating_blocked_p_double)
 {
   int rows = 3;
@@ -279,6 +281,8 @@ START_TEST(create_matrix_mem_allocating_blocked_double)
 }
 END_TEST
 
+#endif
+
 Suite *s21_create_matrix_suite(void) {
   Suite *s = suite_create("s21_create_matrix_test");
   TCase *tc_core = tcase_create("Core");
@@ -297,9 +301,10 @@ Suite *s21_create_matrix_suite(void) {
   tcase_add_test(tc_core, create_matrix_positive_to_negative);
   tcase_add_test(tc_core, create_matrix_not_null_pointer);
   tcase_add_test(tc_core, create_matrix_null_pointer);
+#ifndef WITHOUT_MEMORY_LOCKING
   tcase_add_test(tc_core, create_matrix_mem_allocating_blocked_p_double);
   tcase_add_test(tc_core, create_matrix_mem_allocating_blocked_double);
-
+#endif
   suite_add_tcase(s, tc_core);
   return s;
 }
