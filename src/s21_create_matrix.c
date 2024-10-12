@@ -1,9 +1,11 @@
 #include "s21_matrix.h"
+#include <string.h>
 
 int s21_create_matrix(int rows, int columns, matrix_t *result) {
-  if (result == NULL || rows < 1 || columns < 1 || result->matrix != NULL) {
+  if (result == NULL || rows < 1 || columns < 1) {
     return ERROR;
   }
+  memset(result, 0, sizeof(*result));
 
   int code = 0;
 

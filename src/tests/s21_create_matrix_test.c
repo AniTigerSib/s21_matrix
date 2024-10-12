@@ -217,21 +217,6 @@ START_TEST(create_matrix_positive_to_negative)
 }
 END_TEST
 
-START_TEST(create_matrix_not_null_pointer)
-{
-  res_code_e expected_result = ERROR;
-
-  matrix_t matrix = {0};
-  s21_create_matrix(1, 1, &matrix);
-  ck_assert_int_eq(s21_create_matrix(3, 3, &matrix), expected_result);
-
-  ck_assert_int_eq(matrix.rows, 1);
-  ck_assert_int_eq(matrix.columns, 1);
-  ck_assert_double_eq(matrix.matrix[0][0], 0.0f);
-  s21_remove_matrix(&matrix);
-}
-END_TEST
-
 START_TEST(create_matrix_null_pointer)
 {
   int rows = 3;
@@ -299,7 +284,6 @@ Suite *s21_create_matrix_suite(void) {
   tcase_add_test(tc_core, create_matrix_negative_to_negative);
   tcase_add_test(tc_core, create_matrix_negative_to_positive);
   tcase_add_test(tc_core, create_matrix_positive_to_negative);
-  tcase_add_test(tc_core, create_matrix_not_null_pointer);
   tcase_add_test(tc_core, create_matrix_null_pointer);
 #ifndef WITHOUT_MEMORY_LOCKING
   tcase_add_test(tc_core, create_matrix_mem_allocating_blocked_p_double);

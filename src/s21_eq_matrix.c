@@ -2,6 +2,8 @@
 
 #include <math.h>
 
+#define SUCCESS 1
+#define FAILURE 0
 #define EPSILON 1e-10
 #define is_equal(a, b) (fabs(a - b) < EPSILON)
 

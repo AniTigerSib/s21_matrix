@@ -2,6 +2,9 @@
 
 #include "../s21_matrix.h"
 
+#define SUCCESS 1
+#define FAILURE 0
+
 START_TEST(test_eq_matrix_null) {
   matrix_t A = {0};
   s21_create_matrix(2, 2, &A);
@@ -131,8 +134,6 @@ START_TEST(test_eq_matrix_large) {
 
 START_TEST(test_eq_matrix_empty) {
   matrix_t A = {0}, B = {0};
-  s21_create_matrix(0, 0, &A);
-  s21_create_matrix(0, 0, &B);
 
   int result = s21_eq_matrix(&A, &B);
   ck_assert_int_eq(result, SUCCESS);
@@ -143,7 +144,6 @@ START_TEST(test_eq_matrix_empty) {
 
 START_TEST(test_eq_matrix_empty_vs_nonempty) {
   matrix_t A = {0}, B = {0};
-  s21_create_matrix(0, 0, &A);
   s21_create_matrix(1, 1, &B);
 
   B.matrix[0][0] = 1.0;

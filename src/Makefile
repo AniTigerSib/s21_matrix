@@ -62,7 +62,7 @@ debug: LDFLAGS += -fsanitize=address -g -fno-omit-frame-pointer -fno-optimize-si
 debug: RUN_FLAGS += $(shell ASAN_SYMBOLIZER_PATH=$(dpkg -L llvm-$(llvm-config  --version | grep [0-9][0-9] -o ) | grep -e /usr/lib.*symbolizer))
 debug: test
 
-valgrind: CFLAGS += -DWITHOUT_MEMORY_LOCKING
+valgrind: CFLAGS += -DWITHOUT_MEMORY_LOCKING -g
 valgrind: test
 	@valgrind --tool=memcheck --leak-check=yes --log-file="./logs/valgrind.log"  $(TARGETDIR)/$<
 
