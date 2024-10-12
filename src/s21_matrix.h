@@ -27,5 +27,10 @@ int s21_calc_complements(matrix_t *A, matrix_t *result);
 int s21_determinant(matrix_t *A, double *result);
 int s21_inverse_matrix(matrix_t *A, matrix_t *result);
 
+// Helpers
+
+void create_sub_matrix(const matrix_t *src, matrix_t *dst, const int base_row, const int base_col);
+double get_minor(const matrix_t *src, const int row, const int col);
+double get_determinant(const matrix_t *src);
 
 #endif

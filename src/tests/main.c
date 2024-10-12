@@ -1,7 +1,5 @@
 #include "matrix_test.h"
 
-#include <stdlib.h>
-
 static const char *names[] = {
   "create_matrix_suite",
   "remove_matrix_suite",
