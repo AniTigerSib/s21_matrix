@@ -64,7 +64,7 @@ debug: test
 
 valgrind: CFLAGS += -DWITHOUT_MEMORY_LOCKING -g
 valgrind: test
-	@valgrind --tool=memcheck --leak-check=yes --log-file="./logs/valgrind.log"  $(TARGETDIR)/$<
+	valgrind --tool=memcheck --leak-check=yes --log-file="./logs/valgrind.log"  $(TARGETDIR)/$<
 
 #---------------------------------------------------------#
 

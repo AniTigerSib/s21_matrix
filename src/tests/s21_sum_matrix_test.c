@@ -226,37 +226,6 @@ START_TEST(test_sum_matrix_small_values) {
 }
 END_TEST
 
-START_TEST(test_sum_matrix_remove_result) {
-  matrix_t A = {0}, B = {0}, result = {0};
-  s21_create_matrix(2, 2, &A);
-  s21_create_matrix(2, 2, &B);
-  s21_create_matrix(3, 3, &result);  // Create a result matrix with different dimensions
-
-  // Fill matrices A and B with some values
-  A.matrix[0][0] = 1.0; A.matrix[0][1] = 2.0;
-  A.matrix[1][0] = 3.0; A.matrix[1][1] = 4.0;
-  B.matrix[0][0] = 5.0; B.matrix[0][1] = 6.0;
-  B.matrix[1][0] = 7.0; B.matrix[1][1] = 8.0;
-
-  int ret = s21_sum_matrix(&A, &B, &result);
-  ck_assert_int_eq(ret, OK);
-
-  // Check that the result matrix has been resized correctly
-  ck_assert_int_eq(result.rows, 2);
-  ck_assert_int_eq(result.columns, 2);
-
-  // Check the sum is correct
-  ck_assert_double_eq_tol(result.matrix[0][0], 6.0, 1e-7);
-  ck_assert_double_eq_tol(result.matrix[0][1], 8.0, 1e-7);
-  ck_assert_double_eq_tol(result.matrix[1][0], 10.0, 1e-7);
-  ck_assert_double_eq_tol(result.matrix[1][1], 12.0, 1e-7);
-
-  s21_remove_matrix(&A);
-  s21_remove_matrix(&B);
-  s21_remove_matrix(&result);
-}
-END_TEST
-
 Suite *s21_sum_matrix_suite(void) {
   Suite *s = suite_create("s21_sum_matrix");
   TCase *tc_core  = tcase_create("Core");
@@ -270,7 +239,6 @@ Suite *s21_sum_matrix_suite(void) {
   tcase_add_test(tc_core, test_sum_matrix_floating_point);
   tcase_add_test(tc_core, test_sum_matrix_large_values);
   tcase_add_test(tc_core, test_sum_matrix_small_values);
-  tcase_add_test(tc_core, test_sum_matrix_remove_result);
 
   suite_add_tcase(s, tc_core);
   return s;

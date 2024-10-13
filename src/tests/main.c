@@ -7,6 +7,7 @@ static const char *names[] = {
   "sum_matrix_suite",
   "sub_matrix_suite",
   "mult_number_suite",
+  "mult_matrix_suite",
   "transpose_suite",
   "calc_complements_suite",
   "determinant_suite",
@@ -22,13 +23,13 @@ int main() {
     s21_sub_matrix_suite(),
     s21_mult_number_suite(),
     s21_mult_matrix_suite(),
-    /*s21_transpose_suite(),
+    s21_transpose_suite(),
     s21_calc_complements_suite(),
     s21_determinant_suite(),
-    s21_inverse_matrix_suite(),*/
+    s21_inverse_matrix_suite(),
   };
   /*-----------------------------------------------------*/
-  // int number_failed = 0;
+  int number_failed = 0;
   int n_suites = sizeof(suites) / sizeof(suites[0]);
 
   for (int i = 0; i < n_suites; i++) {
@@ -39,12 +40,11 @@ int main() {
     SRunner *sr = srunner_create(suites[i]);
     srunner_set_log(sr, logfile_name);
     srunner_run_all(sr, CK_NORMAL);
-    // number_failed += srunner_ntests_failed(sr);
+    number_failed += srunner_ntests_failed(sr);
     srunner_free(sr);
   }
 
-  // return (number_failed == 0) ? EXIT_SUCCESS : EXIT_FAILURE;
-  return 0;
+  return (number_failed == 0) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 
 // SRunner *sr = srunner_create(NULL);

@@ -20,6 +20,7 @@ void create_sub_matrix(const matrix_t *src, matrix_t *dst, const int base_row, c
 }
 
 double get_minor(const matrix_t *src, const int row, const int col) {
+  if (src->rows == 1) return src->matrix[0][0];
   matrix_t sub_matrix = {0};
 
   create_sub_matrix(src, &sub_matrix, row, col);
