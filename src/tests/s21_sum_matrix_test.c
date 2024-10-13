@@ -13,6 +13,9 @@ START_TEST(test_sum_matrix_null_input) {
   ret = s21_sum_matrix(&A, NULL, &result);
   ck_assert_int_eq(ret, ERROR);
 
+  ret = s21_sum_matrix(&A, &B, NULL);
+  ck_assert_int_eq(ret, ERROR);
+
   s21_remove_matrix(&A);
   s21_remove_matrix(&B);
 }
