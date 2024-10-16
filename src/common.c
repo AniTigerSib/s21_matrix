@@ -1,7 +1,9 @@
-#include "s21_matrix.h"
 #include <math.h>
 
-void create_sub_matrix(const matrix_t *src, matrix_t *dst, const int base_row, const int base_col) {
+#include "s21_matrix.h"
+
+void create_sub_matrix(const matrix_t *src, matrix_t *dst, const int base_row,
+                       const int base_col) {
   s21_create_matrix(src->rows - 1, src->columns - 1, dst);
   int dst_row = 0;
 
@@ -36,7 +38,8 @@ double get_determinant(const matrix_t *src) {
   if (src->columns == 1) {
     res = src->matrix[0][0];
   } else if (src->columns == 2) {
-    res = src->matrix[0][0] * src->matrix[1][1] - src->matrix[0][1] * src->matrix[1][0];
+    res = src->matrix[0][0] * src->matrix[1][1] -
+          src->matrix[0][1] * src->matrix[1][0];
   } else {
     for (int i = 0; i < src->columns; i++) {
       matrix_t sub_matrix = {0};

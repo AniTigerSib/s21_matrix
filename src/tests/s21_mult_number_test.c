@@ -1,5 +1,5 @@
-#include "matrix_test.h"
 #include "../s21_matrix.h"
+#include "matrix_test.h"
 
 START_TEST(test_s21_mult_number_null_matrix) {
   matrix_t result = {0};
@@ -107,7 +107,8 @@ START_TEST(test_s21_mult_number_large_matrix) {
 
   for (int i = 0; i < size; i++) {
     for (int j = 0; j < size; j++) {
-      ck_assert_double_eq_tol(result.matrix[i][j], A.matrix[i][j] * number, 1e-7);
+      ck_assert_double_eq_tol(result.matrix[i][j], A.matrix[i][j] * number,
+                              1e-7);
     }
   }
 
@@ -205,7 +206,8 @@ START_TEST(test_s21_mult_number_valid_inputs) {
   ck_assert_int_eq(result.columns, 3);
   for (int i = 0; i < 3; i++) {
     for (int j = 0; j < 3; j++) {
-      ck_assert_double_eq_tol(result.matrix[i][j], A.matrix[i][j] * number, 1e-7);
+      ck_assert_double_eq_tol(result.matrix[i][j], A.matrix[i][j] * number,
+                              1e-7);
     }
   }
 

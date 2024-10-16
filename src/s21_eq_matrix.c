@@ -1,10 +1,10 @@
-#include "s21_matrix.h"
-
 #include <math.h>
+
+#include "s21_matrix.h"
 
 #define SUCCESS 1
 #define FAILURE 0
-#define EPSILON 1e-10
+#define EPSILON 1e-8
 #define is_equal(a, b) (fabs(a - b) < EPSILON)
 
 int s21_eq_matrix(matrix_t *A, matrix_t *B) {

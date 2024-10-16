@@ -85,11 +85,11 @@ lcov_report: clean test
 #---------------------------------------------------------#
 
 clang-n: # Prints style warnings
-	clang-format --style=google -n $(SOURCESDIR)/*.c $(TESTSDIR)/*.c
-	clang-format --style=google -n $(SOURCESDIR)/*.h $(TESTSDIR)/*.h
+	clang-format --style=google -n $(SOURCESDIR)/*.c $(TESTSDIR)/*.c $(HELPERSDIR)/*.c
+	clang-format --style=google -n $(SOURCESDIR)/*.h $(TESTSDIR)/*.h $(HELPERSDIR)/*.h
 clang-i: # Fixes style warnings
-	clang-format --style=google -i $(SOURCESDIR)/*.c $(TESTSDIR)/*.c
-	clang-format --style=google -i $(SOURCESDIR)/*.h $(TESTSDIR)/*.h
+	@clang-format --style=google -i $(SOURCESDIR)/*.c $(TESTSDIR)/*.c $(HELPERSDIR)/*.c
+	@clang-format --style=google -i $(SOURCESDIR)/*.h $(TESTSDIR)/*.h $(HELPERSDIR)/*.h
 
 clean:
 	@rm -f $(BUILDDIR)/*

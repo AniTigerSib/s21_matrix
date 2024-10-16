@@ -1,6 +1,5 @@
-#include "matrix_test.h"
-
 #include "../s21_matrix.h"
+#include "matrix_test.h"
 
 #define SUCCESS 1
 #define FAILURE 0

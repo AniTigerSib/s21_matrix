@@ -1,12 +1,10 @@
-#include "matrix_test.h"
-
-#include "../s21_matrix.h"
-
 #include <stdio.h>
 #include <time.h>
 
-START_TEST(remove_matrix_normal)
-{
+#include "../s21_matrix.h"
+#include "matrix_test.h"
+
+START_TEST(remove_matrix_normal) {
   matrix_t matrix = {0};
   s21_create_matrix(3, 3, &matrix);
   s21_remove_matrix(&matrix);
@@ -17,16 +15,14 @@ START_TEST(remove_matrix_normal)
 }
 END_TEST
 
-START_TEST(remove_matrix_null_pointer)
-{
+START_TEST(remove_matrix_null_pointer) {
   matrix_t *matrix = NULL;
   s21_remove_matrix(matrix);
   ck_assert_ptr_eq(matrix, NULL);
 }
 END_TEST
 
-START_TEST(remove_matrix_null_pointer_inside)
-{
+START_TEST(remove_matrix_null_pointer_inside) {
   matrix_t matrix = {0};
   s21_create_matrix(3, 3, &matrix);
   for (int i = 0; i < 3; i++) {
@@ -43,8 +39,7 @@ START_TEST(remove_matrix_null_pointer_inside)
 }
 END_TEST
 
-START_TEST(remove_matrix_null_pointer_inside_normal_pointer)
-{
+START_TEST(remove_matrix_null_pointer_inside_normal_pointer) {
   matrix_t matrix = {0};
   s21_create_matrix(3, 3, &matrix);
   free(matrix.matrix[1]);

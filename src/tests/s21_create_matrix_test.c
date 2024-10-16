@@ -1,12 +1,10 @@
-#include "matrix_test.h"
-
-#include "../s21_matrix.h"
 #include "../allocator_wrapper/allocator_wrapper.h"
+#include "../s21_matrix.h"
+#include "matrix_test.h"
 
 /*----------------OK----------------*/
 
-START_TEST(create_matrix_1to1)
-{
+START_TEST(create_matrix_1to1) {
   int rows = 1;
   int columns = 1;
   res_code_e expected_result = OK;
@@ -22,8 +20,7 @@ START_TEST(create_matrix_1to1)
 }
 END_TEST
 
-START_TEST(create_matrix_1to3)
-{
+START_TEST(create_matrix_1to3) {
   int rows = 1;
   int columns = 3;
   res_code_e expected_result = OK;
@@ -41,8 +38,7 @@ START_TEST(create_matrix_1to3)
 }
 END_TEST
 
-START_TEST(create_matrix_3to1)
-{
+START_TEST(create_matrix_3to1) {
   int rows = 3;
   int columns = 1;
   res_code_e expected_result = OK;
@@ -60,8 +56,7 @@ START_TEST(create_matrix_3to1)
 }
 END_TEST
 
-START_TEST(create_matrix_3to3)
-{
+START_TEST(create_matrix_3to3) {
   int rows = 3;
   int columns = 3;
   res_code_e expected_result = OK;
@@ -87,8 +82,7 @@ END_TEST
 
 /*---------------FAIL---------------*/
 
-START_TEST(create_matrix_zero_to_positive)
-{
+START_TEST(create_matrix_zero_to_positive) {
   int rows = 0;
   int columns = 3;
   res_code_e expected_result = ERROR;
@@ -104,8 +98,7 @@ START_TEST(create_matrix_zero_to_positive)
 }
 END_TEST
 
-START_TEST(create_matrix_positive_to_zero)
-{
+START_TEST(create_matrix_positive_to_zero) {
   int rows = 3;
   int columns = 0;
   res_code_e expected_result = ERROR;
@@ -121,8 +114,7 @@ START_TEST(create_matrix_positive_to_zero)
 }
 END_TEST
 
-START_TEST(create_matrix_zero_to_zero)
-{
+START_TEST(create_matrix_zero_to_zero) {
   int rows = 0;
   int columns = 0;
   res_code_e expected_result = ERROR;
@@ -137,8 +129,7 @@ START_TEST(create_matrix_zero_to_zero)
 }
 END_TEST
 
-START_TEST(create_matrix_negative_to_zero)
-{
+START_TEST(create_matrix_negative_to_zero) {
   int rows = -1;
   int columns = 0;
   res_code_e expected_result = ERROR;
@@ -153,15 +144,14 @@ START_TEST(create_matrix_negative_to_zero)
 }
 END_TEST
 
-START_TEST(create_matrix_zero_to_negative)
-{
+START_TEST(create_matrix_zero_to_negative) {
   int rows = 0;
   int columns = -1;
   res_code_e expected_result = ERROR;
 
   matrix_t matrix = {0};
   ck_assert_int_eq(s21_create_matrix(rows, columns, &matrix), expected_result);
-  
+
   ck_assert_ptr_eq(matrix.matrix, NULL);
   ck_assert_int_eq(matrix.rows, 0);
   ck_assert_int_eq(matrix.columns, 0);
@@ -169,15 +159,14 @@ START_TEST(create_matrix_zero_to_negative)
 }
 END_TEST
 
-START_TEST(create_matrix_negative_to_negative)
-{
+START_TEST(create_matrix_negative_to_negative) {
   int rows = -1;
   int columns = -1;
   res_code_e expected_result = ERROR;
 
   matrix_t matrix = {0};
   ck_assert_int_eq(s21_create_matrix(rows, columns, &matrix), expected_result);
-  
+
   ck_assert_ptr_eq(matrix.matrix, NULL);
   ck_assert_int_eq(matrix.rows, 0);
   ck_assert_int_eq(matrix.columns, 0);
@@ -185,15 +174,14 @@ START_TEST(create_matrix_negative_to_negative)
 }
 END_TEST
 
-START_TEST(create_matrix_negative_to_positive)
-{
+START_TEST(create_matrix_negative_to_positive) {
   int rows = -1;
   int columns = 1;
   res_code_e expected_result = ERROR;
 
   matrix_t matrix = {0};
   ck_assert_int_eq(s21_create_matrix(rows, columns, &matrix), expected_result);
-  
+
   ck_assert_ptr_eq(matrix.matrix, NULL);
   ck_assert_int_eq(matrix.rows, 0);
   ck_assert_int_eq(matrix.columns, 0);
@@ -201,15 +189,14 @@ START_TEST(create_matrix_negative_to_positive)
 }
 END_TEST
 
-START_TEST(create_matrix_positive_to_negative)
-{
+START_TEST(create_matrix_positive_to_negative) {
   int rows = 1;
   int columns = -1;
   res_code_e expected_result = ERROR;
 
   matrix_t matrix = {0};
   ck_assert_int_eq(s21_create_matrix(rows, columns, &matrix), expected_result);
-  
+
   ck_assert_ptr_eq(matrix.matrix, NULL);
   ck_assert_int_eq(matrix.rows, 0);
   ck_assert_int_eq(matrix.columns, 0);
@@ -217,8 +204,7 @@ START_TEST(create_matrix_positive_to_negative)
 }
 END_TEST
 
-START_TEST(create_matrix_null_pointer)
-{
+START_TEST(create_matrix_null_pointer) {
   int rows = 3;
   int columns = 3;
   res_code_e expected_result = ERROR;
@@ -230,8 +216,7 @@ END_TEST
 
 #ifndef WITHOUT_MEMORY_LOCKING
 
-START_TEST(create_matrix_mem_allocating_blocked_p_double)
-{
+START_TEST(create_matrix_mem_allocating_blocked_p_double) {
   int rows = 3;
   int columns = 3;
   res_code_e expected_result = ERROR;
@@ -248,12 +233,11 @@ START_TEST(create_matrix_mem_allocating_blocked_p_double)
 }
 END_TEST
 
-START_TEST(create_matrix_mem_allocating_blocked_double)
-{
+START_TEST(create_matrix_mem_allocating_blocked_double) {
   int rows = 3;
   int columns = 3;
   res_code_e expected_result = ERROR;
-  
+
   matrix_t matrix = {0};
   memory_locked(sizeof(double), 1);
   ck_assert_int_eq(s21_create_matrix(rows, columns, &matrix), expected_result);

@@ -1,5 +1,5 @@
-#include "matrix_test.h"
 #include "../s21_matrix.h"
+#include "matrix_test.h"
 
 START_TEST(test_transpose_null_matrix) {
   matrix_t *A = NULL;
@@ -23,14 +23,14 @@ START_TEST(test_transpose_1x1_matrix) {
   matrix_t result;
   s21_create_matrix(1, 1, &A);
   A.matrix[0][0] = 5.0;
-  
+
   int ret = s21_transpose(&A, &result);
-  
+
   ck_assert_int_eq(ret, OK);
   ck_assert_int_eq(result.rows, 1);
   ck_assert_int_eq(result.columns, 1);
   ck_assert_double_eq(result.matrix[0][0], 5.0);
-  
+
   s21_remove_matrix(&A);
   s21_remove_matrix(&result);
 }
@@ -44,9 +44,9 @@ START_TEST(test_transpose_2x2_matrix) {
   A.matrix[0][1] = 2.0;
   A.matrix[1][0] = 3.0;
   A.matrix[1][1] = 4.0;
-  
+
   int ret = s21_transpose(&A, &result);
-  
+
   ck_assert_int_eq(ret, OK);
   ck_assert_int_eq(result.rows, 2);
   ck_assert_int_eq(result.columns, 2);
@@ -54,7 +54,7 @@ START_TEST(test_transpose_2x2_matrix) {
   ck_assert_double_eq(result.matrix[0][1], 3.0);
   ck_assert_double_eq(result.matrix[1][0], 2.0);
   ck_assert_double_eq(result.matrix[1][1], 4.0);
-  
+
   s21_remove_matrix(&A);
   s21_remove_matrix(&result);
 }
@@ -70,9 +70,9 @@ START_TEST(test_transpose_2x3_matrix) {
   A.matrix[1][0] = 4.0;
   A.matrix[1][1] = 5.0;
   A.matrix[1][2] = 6.0;
-  
+
   int ret = s21_transpose(&A, &result);
-  
+
   ck_assert_int_eq(ret, OK);
   ck_assert_int_eq(result.rows, 3);
   ck_assert_int_eq(result.columns, 2);
@@ -82,7 +82,7 @@ START_TEST(test_transpose_2x3_matrix) {
   ck_assert_double_eq(result.matrix[1][1], 5.0);
   ck_assert_double_eq(result.matrix[2][0], 3.0);
   ck_assert_double_eq(result.matrix[2][1], 6.0);
-  
+
   s21_remove_matrix(&A);
   s21_remove_matrix(&result);
 }
@@ -98,9 +98,9 @@ START_TEST(test_transpose_matrix_with_negative_values) {
   A.matrix[1][0] = 4.0;
   A.matrix[1][1] = -5.0;
   A.matrix[1][2] = 6.0;
-  
+
   int ret = s21_transpose(&A, &result);
-  
+
   ck_assert_int_eq(ret, OK);
   ck_assert_int_eq(result.rows, 3);
   ck_assert_int_eq(result.columns, 2);
@@ -110,7 +110,7 @@ START_TEST(test_transpose_matrix_with_negative_values) {
   ck_assert_double_eq(result.matrix[1][1], -5.0);
   ck_assert_double_eq(result.matrix[2][0], -3.0);
   ck_assert_double_eq(result.matrix[2][1], 6.0);
-  
+
   s21_remove_matrix(&A);
   s21_remove_matrix(&result);
 }
@@ -126,9 +126,9 @@ START_TEST(test_transpose_original_matrix_unchanged) {
   A.matrix[1][1] = 4.0;
   A.matrix[2][0] = 5.0;
   A.matrix[2][1] = 6.0;
-  
+
   int ret = s21_transpose(&A, &result);
-  
+
   ck_assert_int_eq(ret, OK);
   ck_assert_int_eq(A.rows, 3);
   ck_assert_int_eq(A.columns, 2);
@@ -138,7 +138,7 @@ START_TEST(test_transpose_original_matrix_unchanged) {
   ck_assert_double_eq(A.matrix[1][1], 4.0);
   ck_assert_double_eq(A.matrix[2][0], 5.0);
   ck_assert_double_eq(A.matrix[2][1], 6.0);
-  
+
   s21_remove_matrix(&A);
   s21_remove_matrix(&result);
 }
@@ -149,27 +149,27 @@ START_TEST(test_transpose_large_matrix) {
   matrix_t result;
   int size = 1000;
   s21_create_matrix(size, size, &A);
-  
+
   // Fill the matrix with some values
   for (int i = 0; i < size; i++) {
     for (int j = 0; j < size; j++) {
       A.matrix[i][j] = i * size + j;
     }
   }
-  
+
   int ret = s21_transpose(&A, &result);
-  
+
   ck_assert_int_eq(ret, OK);
   ck_assert_int_eq(result.rows, size);
   ck_assert_int_eq(result.columns, size);
-  
+
   // Check a few random elements to ensure correct transposition
   ck_assert_double_eq(result.matrix[0][0], A.matrix[0][0]);
   ck_assert_double_eq(result.matrix[0][999], A.matrix[999][0]);
   ck_assert_double_eq(result.matrix[999][0], A.matrix[0][999]);
   ck_assert_double_eq(result.matrix[999][999], A.matrix[999][999]);
   ck_assert_double_eq(result.matrix[500][500], A.matrix[500][500]);
-  
+
   s21_remove_matrix(&A);
   s21_remove_matrix(&result);
 }

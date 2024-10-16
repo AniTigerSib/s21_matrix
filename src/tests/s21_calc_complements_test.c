@@ -1,5 +1,5 @@
-#include "matrix_test.h"
 #include "../s21_matrix.h"
+#include "matrix_test.h"
 
 START_TEST(test_calc_complements_null_matrix) {
   matrix_t result;
@@ -53,9 +53,15 @@ START_TEST(test_calc_complements_3x3_matrix) {
   matrix_t A;
   matrix_t result;
   s21_create_matrix(3, 3, &A);
-  A.matrix[0][0] = 1; A.matrix[0][1] = 2; A.matrix[0][2] = 3;
-  A.matrix[1][0] = 0; A.matrix[1][1] = 4; A.matrix[1][2] = 2;
-  A.matrix[2][0] = 5; A.matrix[2][1] = 2; A.matrix[2][2] = 1;
+  A.matrix[0][0] = 1;
+  A.matrix[0][1] = 2;
+  A.matrix[0][2] = 3;
+  A.matrix[1][0] = 0;
+  A.matrix[1][1] = 4;
+  A.matrix[1][2] = 2;
+  A.matrix[2][0] = 5;
+  A.matrix[2][1] = 2;
+  A.matrix[2][2] = 1;
 
   int ret = s21_calc_complements(&A, &result);
 
@@ -91,15 +97,35 @@ START_TEST(test_calc_complements_1x1_matrix) {
 }
 END_TEST
 
-START_TEST(test_calc_complements_large_matrix) { // not working
+START_TEST(test_calc_complements_large_matrix) {  // not working
   matrix_t A;
   matrix_t result;
   s21_create_matrix(5, 5, &A);
-  A.matrix[0][0] = 1; A.matrix[0][1] = 2; A.matrix[0][2] = 3; A.matrix[0][3] = 4; A.matrix[0][4] = 5;
-  A.matrix[1][0] = 6; A.matrix[1][1] = 7; A.matrix[1][2] = 8; A.matrix[1][3] = 9; A.matrix[1][4] = 10;
-  A.matrix[2][0] = 11; A.matrix[2][1] = 12; A.matrix[2][2] = 13; A.matrix[2][3] = 14; A.matrix[2][4] = 15;
-  A.matrix[3][0] = 16; A.matrix[3][1] = 17; A.matrix[3][2] = 18; A.matrix[3][3] = 19; A.matrix[3][4] = 20;
-  A.matrix[4][0] = 21; A.matrix[4][1] = 22; A.matrix[4][2] = 23; A.matrix[4][3] = 24; A.matrix[4][4] = 25;
+  A.matrix[0][0] = 1;
+  A.matrix[0][1] = 2;
+  A.matrix[0][2] = 3;
+  A.matrix[0][3] = 4;
+  A.matrix[0][4] = 5;
+  A.matrix[1][0] = 6;
+  A.matrix[1][1] = 7;
+  A.matrix[1][2] = 8;
+  A.matrix[1][3] = 9;
+  A.matrix[1][4] = 10;
+  A.matrix[2][0] = 11;
+  A.matrix[2][1] = 12;
+  A.matrix[2][2] = 13;
+  A.matrix[2][3] = 14;
+  A.matrix[2][4] = 15;
+  A.matrix[3][0] = 16;
+  A.matrix[3][1] = 17;
+  A.matrix[3][2] = 18;
+  A.matrix[3][3] = 19;
+  A.matrix[3][4] = 20;
+  A.matrix[4][0] = 21;
+  A.matrix[4][1] = 22;
+  A.matrix[4][2] = 23;
+  A.matrix[4][3] = 24;
+  A.matrix[4][4] = 25;
 
   int ret = s21_calc_complements(&A, &result);
 
@@ -121,9 +147,15 @@ START_TEST(test_calc_complements_decimal_values) {
   matrix_t A;
   matrix_t result;
   s21_create_matrix(3, 3, &A);
-  A.matrix[0][0] = 1.5; A.matrix[0][1] = 2.3; A.matrix[0][2] = 3.7;
-  A.matrix[1][0] = 0.8; A.matrix[1][1] = 4.2; A.matrix[1][2] = 2.1;
-  A.matrix[2][0] = 5.6; A.matrix[2][1] = 2.9; A.matrix[2][2] = 1.4;
+  A.matrix[0][0] = 1.5;
+  A.matrix[0][1] = 2.3;
+  A.matrix[0][2] = 3.7;
+  A.matrix[1][0] = 0.8;
+  A.matrix[1][1] = 4.2;
+  A.matrix[1][2] = 2.1;
+  A.matrix[2][0] = 5.6;
+  A.matrix[2][1] = 2.9;
+  A.matrix[2][2] = 1.4;
 
   int ret = s21_calc_complements(&A, &result);
 
@@ -147,9 +179,15 @@ START_TEST(test_calc_complements_negative_values) {
   matrix_t A;
   matrix_t result;
   s21_create_matrix(3, 3, &A);
-  A.matrix[0][0] = -1; A.matrix[0][1] = 2; A.matrix[0][2] = -3;
-  A.matrix[1][0] = 4; A.matrix[1][1] = -5; A.matrix[1][2] = 6;
-  A.matrix[2][0] = -7; A.matrix[2][1] = 8; A.matrix[2][2] = -9;
+  A.matrix[0][0] = -1;
+  A.matrix[0][1] = 2;
+  A.matrix[0][2] = -3;
+  A.matrix[1][0] = 4;
+  A.matrix[1][1] = -5;
+  A.matrix[1][2] = 6;
+  A.matrix[2][0] = -7;
+  A.matrix[2][1] = 8;
+  A.matrix[2][2] = -9;
 
   int ret = s21_calc_complements(&A, &result);
 

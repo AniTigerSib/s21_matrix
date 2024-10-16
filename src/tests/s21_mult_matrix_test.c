@@ -1,5 +1,5 @@
-#include "matrix_test.h"
 #include "../s21_matrix.h"
+#include "matrix_test.h"
 
 START_TEST(test_s21_mult_matrix_null_input) {
   matrix_t A, B, result;
@@ -99,19 +99,37 @@ START_TEST(test_s21_mult_matrix_NxN) {
   s21_create_matrix(3, 3, &expected);
 
   // Initialize matrix A
-  A.matrix[0][0] = 1.0; A.matrix[0][1] = 2.0; A.matrix[0][2] = 3.0;
-  A.matrix[1][0] = 4.0; A.matrix[1][1] = 5.0; A.matrix[1][2] = 6.0;
-  A.matrix[2][0] = 7.0; A.matrix[2][1] = 8.0; A.matrix[2][2] = 9.0;
+  A.matrix[0][0] = 1.0;
+  A.matrix[0][1] = 2.0;
+  A.matrix[0][2] = 3.0;
+  A.matrix[1][0] = 4.0;
+  A.matrix[1][1] = 5.0;
+  A.matrix[1][2] = 6.0;
+  A.matrix[2][0] = 7.0;
+  A.matrix[2][1] = 8.0;
+  A.matrix[2][2] = 9.0;
 
   // Initialize matrix B
-  B.matrix[0][0] = 9.0; B.matrix[0][1] = 8.0; B.matrix[0][2] = 7.0;
-  B.matrix[1][0] = 6.0; B.matrix[1][1] = 5.0; B.matrix[1][2] = 4.0;
-  B.matrix[2][0] = 3.0; B.matrix[2][1] = 2.0; B.matrix[2][2] = 1.0;
+  B.matrix[0][0] = 9.0;
+  B.matrix[0][1] = 8.0;
+  B.matrix[0][2] = 7.0;
+  B.matrix[1][0] = 6.0;
+  B.matrix[1][1] = 5.0;
+  B.matrix[1][2] = 4.0;
+  B.matrix[2][0] = 3.0;
+  B.matrix[2][1] = 2.0;
+  B.matrix[2][2] = 1.0;
 
   // Expected result
-  expected.matrix[0][0] = 30.0; expected.matrix[0][1] = 24.0; expected.matrix[0][2] = 18.0;
-  expected.matrix[1][0] = 84.0; expected.matrix[1][1] = 69.0; expected.matrix[1][2] = 54.0;
-  expected.matrix[2][0] = 138.0; expected.matrix[2][1] = 114.0; expected.matrix[2][2] = 90.0;
+  expected.matrix[0][0] = 30.0;
+  expected.matrix[0][1] = 24.0;
+  expected.matrix[0][2] = 18.0;
+  expected.matrix[1][0] = 84.0;
+  expected.matrix[1][1] = 69.0;
+  expected.matrix[1][2] = 54.0;
+  expected.matrix[2][0] = 138.0;
+  expected.matrix[2][1] = 114.0;
+  expected.matrix[2][2] = 90.0;
 
   int status = s21_mult_matrix(&A, &B, &result);
 
@@ -138,14 +156,20 @@ START_TEST(test_s21_mult_matrix_decimal_values) {
   s21_create_matrix(2, 2, &B);
   s21_create_matrix(2, 2, &expected);
 
-  A.matrix[0][0] = 1.5;  A.matrix[0][1] = 2.3;
-  A.matrix[1][0] = 3.7;  A.matrix[1][1] = 4.1;
+  A.matrix[0][0] = 1.5;
+  A.matrix[0][1] = 2.3;
+  A.matrix[1][0] = 3.7;
+  A.matrix[1][1] = 4.1;
 
-  B.matrix[0][0] = 0.5;  B.matrix[0][1] = 1.2;
-  B.matrix[1][0] = 2.4;  B.matrix[1][1] = 3.6;
+  B.matrix[0][0] = 0.5;
+  B.matrix[0][1] = 1.2;
+  B.matrix[1][0] = 2.4;
+  B.matrix[1][1] = 3.6;
 
-  expected.matrix[0][0] = 6.27;  expected.matrix[0][1] = 10.08;
-  expected.matrix[1][0] = 11.69; expected.matrix[1][1] = 19.2;
+  expected.matrix[0][0] = 6.27;
+  expected.matrix[0][1] = 10.08;
+  expected.matrix[1][0] = 11.69;
+  expected.matrix[1][1] = 19.2;
 
   int status = s21_mult_matrix(&A, &B, &result);
 
@@ -171,14 +195,20 @@ START_TEST(test_s21_mult_matrix_negative_values) {
   s21_create_matrix(2, 2, &B);
   s21_create_matrix(2, 2, &expected);
 
-  A.matrix[0][0] = -1.0;  A.matrix[0][1] = 2.0;
-  A.matrix[1][0] = -3.0;  A.matrix[1][1] = 4.0;
+  A.matrix[0][0] = -1.0;
+  A.matrix[0][1] = 2.0;
+  A.matrix[1][0] = -3.0;
+  A.matrix[1][1] = 4.0;
 
-  B.matrix[0][0] = -5.0;  B.matrix[0][1] = 6.0;
-  B.matrix[1][0] = -7.0;  B.matrix[1][1] = 8.0;
+  B.matrix[0][0] = -5.0;
+  B.matrix[0][1] = 6.0;
+  B.matrix[1][0] = -7.0;
+  B.matrix[1][1] = 8.0;
 
-  expected.matrix[0][0] = -9.0;  expected.matrix[0][1] = 10.0;
-  expected.matrix[1][0] = -13.0; expected.matrix[1][1] = 14.0;
+  expected.matrix[0][0] = -9.0;
+  expected.matrix[0][1] = 10.0;
+  expected.matrix[1][0] = -13.0;
+  expected.matrix[1][1] = 14.0;
 
   int status = s21_mult_matrix(&A, &B, &result);
 
@@ -249,17 +279,26 @@ START_TEST(test_s21_mult_matrix_valid_inputs) {
   s21_create_matrix(2, 2, &expected);
 
   // Initialize matrix A
-  A.matrix[0][0] = 1.0; A.matrix[0][1] = 2.0; A.matrix[0][2] = 3.0;
-  A.matrix[1][0] = 4.0; A.matrix[1][1] = 5.0; A.matrix[1][2] = 6.0;
+  A.matrix[0][0] = 1.0;
+  A.matrix[0][1] = 2.0;
+  A.matrix[0][2] = 3.0;
+  A.matrix[1][0] = 4.0;
+  A.matrix[1][1] = 5.0;
+  A.matrix[1][2] = 6.0;
 
   // Initialize matrix B
-  B.matrix[0][0] = 7.0; B.matrix[0][1] = 8.0;
-  B.matrix[1][0] = 9.0; B.matrix[1][1] = 10.0;
-  B.matrix[2][0] = 11.0; B.matrix[2][1] = 12.0;
+  B.matrix[0][0] = 7.0;
+  B.matrix[0][1] = 8.0;
+  B.matrix[1][0] = 9.0;
+  B.matrix[1][1] = 10.0;
+  B.matrix[2][0] = 11.0;
+  B.matrix[2][1] = 12.0;
 
   // Expected result
-  expected.matrix[0][0] = 58.0; expected.matrix[0][1] = 64.0;
-  expected.matrix[1][0] = 139.0; expected.matrix[1][1] = 154.0;
+  expected.matrix[0][0] = 58.0;
+  expected.matrix[0][1] = 64.0;
+  expected.matrix[1][0] = 139.0;
+  expected.matrix[1][1] = 154.0;
 
   int status = s21_mult_matrix(&A, &B, &result);
 

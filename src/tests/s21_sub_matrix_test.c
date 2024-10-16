@@ -1,5 +1,5 @@
-#include "matrix_test.h"
 #include "../s21_matrix.h"
+#include "matrix_test.h"
 
 START_TEST(test_s21_sub_matrix_null_input) {
   matrix_t A, B, result = {0};
@@ -233,10 +233,14 @@ START_TEST(test_sub_matrix_large_values) {
   int ret = s21_sub_matrix(&A, &B, &result);
 
   ck_assert_int_eq(ret, OK);
-  ck_assert_double_eq_tol(result.matrix[0][0], large_value / 2, 1e-7 * large_value);
-  ck_assert_double_eq_tol(result.matrix[0][1], -large_value / 2, 1e-7 * large_value);
-  ck_assert_double_eq_tol(result.matrix[1][0], large_value / 4, 1e-7 * large_value);
-  ck_assert_double_eq_tol(result.matrix[1][1], -large_value / 4, 1e-7 * large_value);
+  ck_assert_double_eq_tol(result.matrix[0][0], large_value / 2,
+                          1e-7 * large_value);
+  ck_assert_double_eq_tol(result.matrix[0][1], -large_value / 2,
+                          1e-7 * large_value);
+  ck_assert_double_eq_tol(result.matrix[1][0], large_value / 4,
+                          1e-7 * large_value);
+  ck_assert_double_eq_tol(result.matrix[1][1], -large_value / 4,
+                          1e-7 * large_value);
 
   s21_remove_matrix(&A);
   s21_remove_matrix(&B);

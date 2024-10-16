@@ -1,6 +1,10 @@
+#include <dlfcn.h>
+
 #include "allocator_wrapper.h"
 
-#include <dlfcn.h>
+#ifndef RTLD_NEXT
+#define RTLD_NEXT ((void *)-1l)
+#endif
 
 void *malloc(size_t __size) {
   void *result = NULL;

@@ -1,34 +1,21 @@
 #include "matrix_test.h"
-
-#include <stdlib.h>
+#include "stdlib.h"
 
 static const char *names[] = {
-  "create_matrix_suite",
-  "remove_matrix_suite",
-  "eq_matrix_suite",
-  "sum_matrix_suite",
-  "sub_matrix_suite",
-  "mult_number_suite",
-  "mult_matrix_suite",
-  "transpose_suite",
-  "calc_complements_suite",
-  "determinant_suite",
-  "inverse_matrix_suite",
+    "create_matrix_suite", "remove_matrix_suite",  "eq_matrix_suite",
+    "sum_matrix_suite",    "sub_matrix_suite",     "mult_number_suite",
+    "mult_matrix_suite",   "transpose_suite",      "calc_complements_suite",
+    "determinant_suite",   "inverse_matrix_suite",
 };
 
 int main() {
   Suite *suites[] = {
-    s21_create_matrix_suite(),
-    s21_remove_matrix_suite(),
-    s21_eq_matrix_suite(),
-    s21_sum_matrix_suite(),
-    s21_sub_matrix_suite(),
-    s21_mult_number_suite(),
-    s21_mult_matrix_suite(),
-    s21_transpose_suite(),
-    s21_calc_complements_suite(),
-    s21_determinant_suite(),
-    s21_inverse_matrix_suite(),
+      s21_create_matrix_suite(),    s21_remove_matrix_suite(),
+      s21_eq_matrix_suite(),        s21_sum_matrix_suite(),
+      s21_sub_matrix_suite(),       s21_mult_number_suite(),
+      s21_mult_matrix_suite(),      s21_transpose_suite(),
+      s21_calc_complements_suite(), s21_determinant_suite(),
+      s21_inverse_matrix_suite(),
   };
   /*-----------------------------------------------------*/
   int number_failed = 0;
@@ -47,4 +34,5 @@ int main() {
   }
 
   return (number_failed == 0) ? EXIT_SUCCESS : EXIT_FAILURE;
+  return 0;
 }
